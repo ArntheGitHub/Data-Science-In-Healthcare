@@ -1,20 +1,8 @@
 import streamlit as st
 import pickle
+import pandas as pd
 import numpy as np
 import seaborn as sns
-
-# Load the trained model and associated data
-@st.cache
-def load_trained_data():
-    with open("Logistic_Regression_trained_data.pkl", "rb") as f:
-        return pickle.load(f)
-
-trained_data = load_trained_data()
-
-# Extract the model and other data
-model = trained_data['model']
-X_train = trained_data['X_train']
-y_train = trained_data['y_train']
 
 # Function to predict stroke probability
 def predict_stroke_probability(features):
@@ -67,3 +55,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# streamlit run streamlit-app.py
