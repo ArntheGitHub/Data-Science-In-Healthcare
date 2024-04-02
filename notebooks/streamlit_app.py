@@ -43,7 +43,7 @@ def create_interactive_scatter_plot(df, target, features):
 
 
 def create_interactive_histogram(df):
-    st.title('Interactive Histogram Plot')
+    st.write('## Interactive Histogram Plot')
 
     # Sidebar for user input:
     column_options = ['gender', 'age', 'hypertension', 'heart_disease', 'ever_married',
@@ -91,21 +91,17 @@ def main():
     Welcome! This application aims to predict the likelihood of a brain stroke based on a variety of health and lifestyle factors. Our analysis is based on a dataset that includes key indicators related to stroke occurrences.
 
     """)
+    st.write('## Data Overview')
+    st.write('', df.head(5200))
 
-    st.write("### Data Overview", df.head(15))
-    
-
-    # Define target and features
-    target = 'stroke'
-    features = ['gender','age','hypertension','heart_disease','ever_married','work_type', 'Residence_type','avg_glucose_levle','bmi','smoking_status','stroke','rounded_age']
-
-    # Call the function to create the interactive scatter plot
+    # Call the function to create the interactive plots
 
     # create_interactive_scatter_plot(df_2, target, features)
     create_interactive_histogram(df_2)
 
-    
+    st.write('##  Brain Stroke Prediction')
     st.write("### Data Features")
+    st.write("Please select the suitable data features according to our patient.")
     user_inputs = {}
 
     # Input values for features, ensure all inputs are required by checking their values before prediction
@@ -113,10 +109,10 @@ def main():
     user_inputs['heart_disease'] = st.checkbox("Heart Disease")
     user_inputs['ever_married'] = st.checkbox("Ever Married")
     user_inputs['residence_type'] = st.selectbox("Residence Type", ["Urban", "Rural"])
-    user_inputs['avg_glucose_level'] = st.number_input("Average Glucose Level", min_value=0.0, step=0.1, format="%.2f")
-    user_inputs['bmi'] = st.number_input("BMI", min_value=0.0, step=0.1, format="%.2f")
-    user_inputs['age'] = st.number_input("Age", min_value=0, step=1, format="%d")
-    user_inputs['gender'] = st.selectbox("Gender", ["Female", "Male", "Other"])
+    user_inputs['avg_glucose_level'] = st.number_input("Average Glucose Level", min_value=50.0, step=5.0, format="%.2f")
+    user_inputs['bmi'] = st.number_input("BMI", min_value=18.5, step=1.5, format="%.2f")
+    user_inputs['age'] = st.number_input("Age", min_value=0, step=5, format="%d")
+    user_inputs['gender'] = st.selectbox("Gender", ["Female", "Male"])
     user_inputs['smoking_status'] = st.selectbox("Smoking Status", ["Unknown", "Formerly Smoked", "Never Smoked", "Smokes"])
     user_inputs['work_type'] = st.selectbox("Work Type", ["Govt Job", "Never Worked", "Private", "Self-employed", "Children"])
     
@@ -167,7 +163,8 @@ def main():
 
         # Make prediction
         probability = model.predict_proba(features_scaled)
-        st.write(f"The probability of having a stroke is: {probability[0][1]:.2f}")
+        percentage = round(probability[0][1] * 100, 2)
+        st.write(f"The probability of having a brain stroke is: {percentage}%")
 
 
 
