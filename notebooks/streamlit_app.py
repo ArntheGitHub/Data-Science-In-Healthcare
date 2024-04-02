@@ -18,28 +18,28 @@ model = trained_data['model']
 scaler = trained_data['scaler']  # Assuming your saved trained data includes the scaler
 X_train = trained_data['X_train']
 
-# Function to create the interactive scatter plot
-def create_interactive_scatter_plot(df, target, features):
-    st.title('Interactive Scatter Plot')
+# # Function to create the interactive scatter plot
+# def create_interactive_scatter_plot(df, target, features):
+#     st.title('Interactive Scatter Plot')
 
-    # Sidebar for user input:
-    # User can select the x-axis for the scatter plot from features list
-    x_axis_options = features
-    x_axis = st.sidebar.selectbox('Select the x-axis for the scatter plot:', x_axis_options)
+#     # Sidebar for user input:
+#     # User can select the x-axis for the scatter plot from features list
+#     x_axis_options = features
+#     x_axis = st.sidebar.selectbox('Select the x-axis for the scatter plot:', x_axis_options)
 
-    # Create a Plotly Express scatter plot
-    fig = px.scatter(df, x=x_axis, y=target,
-                     color=target, hover_data=features)
+#     # Create a Plotly Express scatter plot
+#     fig = px.scatter(df, x=x_axis, y=target,
+#                      color=target, hover_data=features)
     
-    # Update layout if desired
-    fig.update_layout(
-        title=f'Scatter Plot of {target.capitalize()} vs. {x_axis}',
-        xaxis_title=x_axis,
-        yaxis_title=target.capitalize()
-    )
+#     # Update layout if desired
+#     fig.update_layout(
+#         title=f'Scatter Plot of {target.capitalize()} vs. {x_axis}',
+#         xaxis_title=x_axis,
+#         yaxis_title=target.capitalize()
+#     )
 
-    # Display the plot
-    st.plotly_chart(fig, use_container_width=True)
+#     # Display the plot
+#     st.plotly_chart(fig, use_container_width=True)
 
 
 def create_interactive_histogram(df):
@@ -78,19 +78,28 @@ def predict_stroke_probability(features):
 
 
 def main():
-    gender_mapping = {"Female": 1, "Male": 0, "Other": 2}
-    residence_mapping = {"Urban": 1, "Rural": 0}
-    smoking_mapping = {"Unknown": 0, "Formerly Smoked": 1, "Never Smoked": 2, "Smokes": 3}
-    work_mapping = {"Govt Job": 0, "Never Worked": 1, "Private": 2, "Self-employed": 3, "Children": 4}
     
+    st.title("Stroke Prediction Application 🏥")
 
-    st.title("""
-    Welcome to Our Stroke Prediction Application 🏥
+    st.write("""
+    ### Welcome to the Stroke Prediction Application!
 
-    ## Project Introduction
-    Welcome! This application aims to predict the likelihood of a brain stroke based on a variety of health and lifestyle factors. Our analysis is based on a dataset that includes key indicators related to stroke occurrences.
+    This interactive tool is designed to estimate the likelihood of having a stroke by analysing various health and lifestyle parameters. Stroke is the second leading cause of death worldwide and understanding your risk factors can be an important step in prevention and management.
 
-    """)
+    Our application uses a comprehensive dataset that includes critical indicators known to influence the occurrence of stroke. These indicators include medical factors such as high blood pressure and heart disease, as well as lifestyle choices such as smoking status and physical activity.
+
+    ### Key features of the application include
+    - Personalised risk assessment. By entering your health information, you will receive a personalised estimate of your stroke risk.
+    - Educational Insights. Learn about the different factors that contribute to stroke risk and how they might apply to you.
+    - Interactive visualisations. Explore data trends and patterns with interactive graphs that illustrate the impact of different risk factors.
+
+    We believe that empowering individuals with knowledge about their health can lead to better outcomes. While this tool is not a substitute for professional medical advice, we hope it will serve as a resource for better understanding and dialogue about stroke prevention strategies.
+
+    Please remember that the information provided by this tool is for educational purposes only and should be discussed with a healthcare professional.
+
+    ### Start your assessment below:
+    """, unsafe_allow_html=True)
+    
     st.write('## Data Overview')
     st.write('', df.head(5200))
 
